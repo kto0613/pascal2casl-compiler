@@ -1,0 +1,87 @@
+<!-- !!! このファイルは編集禁止 !!! -->
+<project>
+	<property name="build.dir" location="build" />
+	<property name="classes.dir" location="${build.dir}/classes" />
+	<property name="src.dir" location="src/main/java" />
+	<property name="test.src.dir" location="src/test/java" />
+	<property name="lib.dir" location="lib" />
+	<property name="test.report.dir" location="${build.dir}/test-report" />
+	<property name="src.encoding" value="UTF-8" />
+	<property name="test.s0.trial.class" value="enshud.s0.trial.TrialTest" />
+	<property name="test.s1.lexer.class" value="enshud.s1.lexer.LexerTest" />
+	<property name="test.s2.parser.class" value="enshud.s2.parser.ParserTest" />
+	<property name="test.s3.checker.class" value="enshud.s3.checker.CheckerTest" />
+	<property name="test.s4.compiler.class" value="enshud.s4.compiler.CompilerTest" />
+
+	<path id="runtime.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean" description="Ant タスクで生成された全てのファイルを削除します">
+		<delete dir="${build.dir}" />
+		<delete>
+			<fileset dir="." includes="TEST*" />
+		</delete>
+	</target>
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${test.report.dir}" />
+	</target>
+
+	<target name="compile" depends="prepare" description="ソースコードをコンパイルして class ファイルを生成します">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="${src.encoding}" includeantruntime="false" classpathref="runtime.classpath" />
+	</target>
+
+	<target name="compile.test" depends="compile" description="テストコードをコンパイルして class ファイルを生成します">
+		<javac srcdir="${test.src.dir}" destdir="${classes.dir}" encoding="${src.encoding}" includeantruntime="false" classpathref="runtime.classpath" />
+	</target>
+
+	<target name="test.s0.trial" depends="compile.test" description="JUnit のテストを実行します">
+		<junit printsummary="yes" fork="true" haltonfailure="yes">
+			<classpath location="${classes.dir}" />
+			<classpath refid="runtime.classpath" />
+			<test name="${test.s0.trial.class}" todir="${test.report.dir}" />
+			<formatter type="xml" extension=".xml" />
+		</junit>
+	</target>
+
+	<target name="test.s1.lexer" depends="compile.test" description="JUnit のテストを実行します">
+		<junit printsummary="yes" fork="true" haltonfailure="yes">
+			<classpath location="${classes.dir}" />
+			<classpath refid="runtime.classpath" />
+			<test name="${test.s1.lexer.class}" todir="${test.report.dir}" />
+			<formatter type="xml" extension=".xml" />
+		</junit>
+	</target>
+
+	<target name="test.s2.parser" depends="compile.test" description="JUnit のテストを実行します">
+		<junit printsummary="yes" fork="true" haltonfailure="yes">
+			<classpath location="${classes.dir}" />
+			<classpath refid="runtime.classpath" />
+			<test name="${test.s2.parser.class}" todir="${test.report.dir}" />
+			<formatter type="xml" extension=".xml" />
+		</junit>
+	</target>
+
+	<target name="test.s3.checker" depends="compile.test" description="JUnit のテストを実行します">
+		<junit printsummary="yes" fork="true" haltonfailure="yes">
+			<classpath location="${classes.dir}" />
+			<classpath refid="runtime.classpath" />
+			<test name="${test.s3.checker.class}" todir="${test.report.dir}" />
+			<formatter type="xml" extension=".xml" />
+		</junit>
+	</target>
+
+	<target name="test.s4.compiler" depends="compile.test" description="JUnit のテストを実行します">
+		<junit printsummary="yes" fork="true" haltonfailure="yes">
+			<classpath location="${classes.dir}" />
+			<classpath refid="runtime.classpath" />
+			<test name="${test.s4.compiler.class}" todir="${test.report.dir}" />
+			<formatter type="xml" extension=".xml" />
+		</junit>
+	</target>
+
+</project>
